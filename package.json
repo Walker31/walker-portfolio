@@ -4,6 +4,10 @@
   "homepage": "https://walker31.github.io/walker-portfolio",
   "version": "0.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Walker31/walker-portfolio.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

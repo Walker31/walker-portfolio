@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # Required to push to gh-pages
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -20,12 +22,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Create environment file
+        run: |
+          echo "VITE_SERVICE_ID=${{ secrets.VITE_SERVICE_ID }}" >> .env
+          echo "VITE_TEMPLATE_ID=${{ secrets.VITE_TEMPLATE_ID }}" >> .env
+          echo "VITE_PUBLIC_KEY=${{ secrets.VITE_PUBLIC_KEY }}" >> .env
 
       - name: Build project
         run: npm run build
+
+      - name: Check build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed: dist directory not found"
+            exit 1
+          fi
+          echo "Build successful: dist directory created"
 
       - name: Set Git identity for GitHub Actions
         run: |
@@ -34,3 +51,10 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify deployment
+        run: |
+          echo "Deployment completed successfully"
+          echo "Your site should be available at: https://walker31.github.io/walker-portfolio"

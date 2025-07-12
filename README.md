@@ -81,8 +81,8 @@ A modern, responsive portfolio website showcasing my skills, projects, and exper
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/walker31/portfolio.git
-   cd portfolio
+   git clone https://github.com/Walker31/walker-portfolio.git
+   cd walker-portfolio
    ```
 
 2. **Install dependencies**
@@ -90,12 +90,23 @@ A modern, responsive portfolio website showcasing my skills, projects, and exper
    npm install
    ```
 
-3. **Start development server**
+3. **Set up environment variables**
+   ```bash
+   cp env.example .env
+   ```
+   Edit `.env` with your EmailJS credentials:
+   ```
+   VITE_SERVICE_ID=your_emailjs_service_id
+   VITE_TEMPLATE_ID=your_emailjs_template_id
+   VITE_PUBLIC_KEY=your_emailjs_public_key
+   ```
+
+4. **Start development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to `http://localhost:5173`
 
 ### Build for Production
@@ -113,7 +124,7 @@ npm run deploy
 ## 📁 **Project Structure**
 
 ```
-portfolio/
+walker-portfolio/
 ├── public/
 │   └── vite.svg
 ├── src/
@@ -130,6 +141,7 @@ portfolio/
 │   ├── App.jsx                   # Main app component
 │   ├── index.css                 # Global styles and animations
 │   └── main.jsx                  # App entry point
+├── .github/workflows/            # GitHub Actions deployment
 ├── package.json
 └── README.md
 ```
@@ -186,6 +198,66 @@ The contact form uses EmailJS for reliable email delivery:
 - **Template ID**: Custom email template
 - **Public Key**: Secure API access
 
+## 🚀 **Deployment**
+
+### **GitHub Pages Deployment**
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+#### **Setup Instructions:**
+
+1. **Fork or clone this repository**
+2. **Enable GitHub Pages**:
+   - Go to your repository Settings
+   - Navigate to Pages section
+   - Set source to "GitHub Actions"
+
+3. **Set up EmailJS (Optional)**:
+   - Create an account at [EmailJS](https://www.emailjs.com/)
+   - Get your Service ID, Template ID, and Public Key
+   - Add them as GitHub Secrets:
+     - `VITE_SERVICE_ID`
+     - `VITE_TEMPLATE_ID`
+     - `VITE_PUBLIC_KEY`
+
+4. **Push to main branch**:
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+#### **GitHub Actions Workflow**
+
+The `.github/workflows/deploy.yml` file handles:
+- ✅ Automatic builds on push to main
+- ✅ Environment variable injection
+- ✅ Build verification
+- ✅ Deployment to GitHub Pages
+- ✅ Error handling and logging
+
+#### **Manual Deployment**
+
+If you prefer manual deployment:
+
+```bash
+# Build the project
+npm run build
+
+# Deploy to GitHub Pages
+npm run deploy
+```
+
+### **Environment Variables**
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_SERVICE_ID=your_emailjs_service_id
+VITE_TEMPLATE_ID=your_emailjs_template_id
+VITE_PUBLIC_KEY=your_emailjs_public_key
+```
+
 ## 🔄 **Recent Updates**
 
 ### **v2.0 - Major Enhancement**
@@ -215,7 +287,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📞 **Contact**
 
 - **Email**: aditya.janga@example.com
-- **GitHub**: [@walker31](https://github.com/walker31)
+- **GitHub**: [@Walker31](https://github.com/Walker31)
 - **LinkedIn**: [Aditya Janga](https://linkedin.com/in/aditya-janga)
 
 ---
